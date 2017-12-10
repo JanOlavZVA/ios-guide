@@ -58,6 +58,7 @@ Aggregate targets can also be used for building multiple disparate targets. For 
 
 
 # Dependencies
+
 Dependencies are simply pre-requisites for building a target. Target dependency management is one of the more complex aspects in Xcode. Understanding of Xcode's toolchain and build environment configuration helps with making dependencies more manageable.
 
 ## Explicit
@@ -105,6 +106,7 @@ Situation: You link a library a library against your application target and crea
 
 * Scenario 1: "Find Implicit Dependencies" is enabled.
 	Result: The library will get built prior to building the application target. The application target will then link against the library and build successfully.
+
 * Scenario 2: "Find Implicit Dependencies" is disabled.
 	Result: The library will not get built prior to building the application target. The application target fail to build.
 	Fix: To ensure that the second scenario does not happen, you must add the necessary targets into the targets list and order them correctly.
@@ -118,12 +120,19 @@ As of this writing, both Xcode 5 and 6 exhibit some very confusing behavior with
 The "Run" action allows you to configure how the application will launch and the environment it has.
 
 * Info: You can configure the build configuration that the scheme will use, the built product/executable, and how that will get debugged and run.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management3.png">
+
 * Arguments: Use this section to configure passed launch arguments and environment variables. Existing environment variables, such as SRCROOT can be used here and will be expanded before being passed.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management4.png">
+
 * Options: This is a set of additional options relevant to the state of running the application from Xcode.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management5.png">
+
 * Diagnostics: These are additional tools that can be enabled to help debug memory management issues as well as some more advanced information logging.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management6.png">
 
 ### Test
@@ -131,8 +140,11 @@ The "Run" action allows you to configure how the application will launch and the
 The "Test" scheme action is used to run associated unit test bundles.
 
 * Info: Selecting the build configuration and debugger used when running tests. This view provides a list of unit test targets that are associated with the scheme. This also displays the state of all the test methods in each unit test bundle. Individual test methods can be enabled or disabled from being called when running the test action on the scheme.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management7.png">
+
 * Arguments: Similar to the "run" action, the test action can be passed specific environment variables and launch arguments. These can be inherited directly from the entries in the "run" scheme action.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management8.png">
 
 ### Profile
@@ -140,10 +152,15 @@ The "Test" scheme action is used to run associated unit test bundles.
 The "Profile" scheme action allows you to run an app while attached to additional debugging instrumentation. This is crucial to track down memory leaks, examine threading behavior, and make performance optimizations.
 
 * Info: This will configure the initial behavior performed by the profile action. The build configuration, executable to attach to, and the default action that Instruments.app should take are configurable from here.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management9.png">
+
 * Arguments: Similar to the "run" action, the profile action can be passed specific environment variables and launch arguments. These can be inherited directly from the entries in the "run" scheme action.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management10.png">
+
 * Options: This includes some additional launch and application state options.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management11.png">
 
 ### Analyze
@@ -229,24 +246,38 @@ The "Legacy" option, was default option for Xcode prior to version 4. This setti
 # Best Practices 
 
 ## Manage multiple versions of App with Configurations
+
 * Setup your project configurations.
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management18.png">
+
 * Update environment related variables in Info.plist (AppName, BundleID, AppIcon, CustomVariables)
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management19.png">
+
 * Update environment related variables in App Target's build settings (AppName, BundleID, AppIcon, CustomVariables)
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management20.png">
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management21.png">
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management22.png">
+
 * Add or Update scheme for using your new configuration
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management23.png">
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management24.png">
+
 * Update your code for using your new CustomVariables (if needed)
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management25.png">
+
 ```swift
 let env = NSBundle.mainBundle().infoDictionary![“MY_API_BASE_URL_ENDPOINT”] as! String
 ```
+
 * Add custom compiler variables (if needed)
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management26.png">
+
 ```swift
 struct Configuration {
     #if DEBUG
@@ -262,17 +293,20 @@ struct Configuration {
 }
 ```
 
-
-
 ## Manage multiple versions of App with Targets
 
 * Create new target
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management27.png">
+
 * Update target related settings (General settings, Assets, BundleID, Build Settings, CustomVariables etc)
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management28.png">
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management29.png">
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management30.png">
+
 * Update your code for using your new CustomVariables (if needed)
+
 ```objc
 #if DEVELOPMENT
 #define SERVER_URL @"http://dev.server.com/api/"
@@ -282,9 +316,13 @@ struct Configuration {
 #define API_TOKEN @"71a629j0f090232"
 #endif
 ```
+
 > Note: Dont forget to include your files to the targets
+
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management31.png">
+
 > Note: If using CocoaPods dont forget target to podfile
+
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '11.0'
@@ -296,7 +334,7 @@ pod 'AFNetworking'
 
 # Resources
 
-**Source Blog:** https://pewpewthespells.com/ramble.html
-https://medium.com/@danielgalasko/run-multiple-versions-of-your-app-on-the-same-device-using-xcode-configurations-1fd3a220c608
-https://medium.com/@danielgalasko/change-your-api-endpoint-environment-using-xcode-configurations-in-swift-c1ad2722200e
-https://www.appcoda.com/using-xcode-targets/
+[**Source Blog:**](https://pewpewthespells.com/ramble.html)
+[Medium Configurations 1](https://medium.com/@danielgalasko/run-multiple-versions-of-your-app-on-the-same-device-using-xcode-configurations-1fd3a220c608)
+[Medium Configurations 2](https://medium.com/@danielgalasko/change-your-api-endpoint-environment-using-xcode-configurations-in-swift-c1ad2722200e)
+[AppCoda Targets](https://www.appcoda.com/using-xcode-targets/)
