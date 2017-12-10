@@ -136,7 +136,7 @@ The result of this inheritance hierarchy is that all instances, classes and meta
 
 For all instances, classes and meta-classes in the NSObject hierarchy, this means that all NSObject instance methods are valid. For the classes and meta-classes, all NSObject class methods are also valid.
 
-(Images/Class_inheritance.png)
+<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/Class_inheritance.png"/>
 
 The meta-class is the class for a Class object. Every Class has its own unique meta-class (since every Class can have its own unique list of methods). This means that all Class objects are not themselves all of the same class.
 
@@ -663,7 +663,9 @@ class Kraken {
 
 ## Retain cycle
 Important places to use weak variables are in cases where you have potential retain cycles. A retain cycle is what happens when two objects both have strong references to each other. If 2 objects have strong references to each other, ARC will not generate the appropriate release message code on each instance since they are keeping each other alive. Here's a neat little image from Apple that nicely illustrates this:
-(Images/retain-cycle.png)
+
+<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/retain-cycle.png"/>
+
 ```objc
 class Kraken {
     var notificationObserver: ((Notification) -> Void)?
@@ -683,7 +685,9 @@ Here, NotificationCenter retains a closure that captures self strongly when you 
 Other gotchas where this could happen is in places like NSTimers and NSThread.
 
 The fix is to use a weak reference to self in the closure's capture list.
-(Images/retain-cycle-broken.png)
+
+<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/retain-cycle-broken.png"/>
+
 ```objc
 NotificationCenter.default.addObserver(forName: "humanEnteredKrakensLair", object: nil, queue: .main) { [weak self] notification in //The retain cycle is fixed by using capture lists!
     self?.eatHuman() //self is now an optional!
