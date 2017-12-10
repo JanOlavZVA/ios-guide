@@ -64,3 +64,37 @@ Testers install the prerelease version on supported devices using TestFlight. Te
 
 * In iTunes Connect, release the app.
 Users install the app on supported devices, and the store app downloads a variant of the app specific to the user’s device.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

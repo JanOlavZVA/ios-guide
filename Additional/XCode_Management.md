@@ -1,3 +1,15 @@
+**XCode Management**
+- [Workspace Files](#WorkspaceFiles)
+- [Project Files](#ProjectFiles)
+- [Targets](#Targets)
+- [Dependencies](#Dependencies)
+- [Schemes](#Schemes)
+- [Build Configuration](#BuildConfiguration)
+- [Build Locations](#BuildLocations)
+- [Best Practices](#BestPractices)
+- [Resources](#Resources)
+
+<a name="WorkspaceFiles"></a>
 # Workspace Files
 
 A workspace file (".xcworkspace") is a container for other types of files, typically Xcode project files. Workspace files can also contain schemes. This is an organizational tool to help define implicit as well as explicit relationships between the files contained in the workspace.
@@ -8,7 +20,7 @@ A workspace file (".xcworkspace") is a container for other types of files, typic
 
 For example, this enables the separation of library code from your app's code. In practice you may a project that has: one target for building your app, one target for building a library for an iOS device, one target for building a library for the iOS Simulator, and one aggregate target to combine the two library targets into one binary. By using a workspace to manage this, you could make a separate project file that is only for building the library, and contain the library-related targets. This makes your app's project file much cleaner and only contain code relevant to the building the app. This will create an implicit dependency between building the library and building the app.
 
-
+<a name="ProjectFiles"></a>
 # Project Files
 
 Project files are **used to define build environment, tools, resources, and contain references to code files.** They create explicit relationships between the contents. This means that **project files should be used as a container for targets that have explicit dependencies for code to be built successfully.** Like workspace files, project files can also contain schemes.
@@ -19,7 +31,7 @@ Project files are **used to define build environment, tools, resources, and cont
 
 This behavior is useful for writing wrappers around another set of APIs. It cuts out a lot of work in resolving implicit dependencies on a per-target basis and will communicate build errors in a more clear manner.
 
-
+<a name="Targets"></a>
 # Targets
 
 A target defines a specific set of build settings that accompany a set of build rules. Targets do not have to produce any output files, they can be used as both a means to create as well as to organize.
@@ -56,7 +68,7 @@ Aggregate targets do not directly produce a build product. They act as a means o
 
 Aggregate targets can also be used for building multiple disparate targets. For example, building both a dynamic framework and a static library version of your code from the same dependency target. This makes aggregate targets extremely flexible and useful for configuring builds.
 
-
+<a name="Dependencies"></a>
 # Dependencies
 
 Dependencies are simply pre-requisites for building a target. Target dependency management is one of the more complex aspects in Xcode. Understanding of Xcode's toolchain and build environment configuration helps with making dependencies more manageable.
@@ -83,7 +95,7 @@ Libraries managed by something external to the project
 Product of a script that cannot be validated immediately
 External build tool targets can sometimes result having external dependencies. It depends on how the build system was setup and configured. However most external build tool targets integrate into Xcode, so it can resolve the implicit dependencies for you.
 
-
+<a name="Schemes"></a>
 # Schemes
 
 Schemes are one of the most powerful organizational tools in Xcode. These allow you to define dependencies and give them ordering, also they allow fine-grain tweaking of the build settings associated with a target based on the build configuration. A scheme supports multiple actions that can be configured to perform specific tasks based on the action.
@@ -193,7 +205,7 @@ To make the list of schemes more manageable, there is an additional checkbox to 
 
 <img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management15.png">
 
-
+<a name="BuildConfiguration"></a>
 # Build Configuration
 
 Build configurations are used to apply specific variations to a target's build settings. By default, projects have two configurations "Debug" and "Release". These configurations allow for fine-tune control over specific build settings and flags that should be passed or over-ride the existing settings of a target. An example of this in action would be turning off code optimizations for Debug builds, but enabling code optimization for Release builds.
@@ -202,7 +214,7 @@ Build configurations are used to apply specific variations to a target's build s
 
 Build configurations are stored on a per-project level and allow for specifying a single additional configuration file (.xcconfig file) on a per target basis. A configuration is an additional layer to the build settings of a target. All targets in a project can inherit the build settings dictated on the project level, and those settings can be over-ridden on a per-target basis. Like-wise, each build configuration inherits the build settings from an individual target, but can over-ride any of them to only apply when building with that specific configuration. This can be extremely helpful when building the same set of code for different platforms. Instead of maintaining two separate build targets that only primarily build against the OS X or iOS SDKs, these can be done via different build configurations. This removes the burden of keeping the settings of both targets in sync and allows for easier management via schemes.
 
-
+<a name="BuildLocations"></a>
 # Build Locations
 
 > Note: All of the settings discussed in this section apply globally. All of your projects and workspaces will use these settings. Use caution and check thoroughly before changing any of these settings. In addition to managing the organization of code inside of Xcode, you can also customize the output locations of any built products. Build locations are significant to managing the resolution of target dependencies. From this panel you can set where on the filesystem Xcode should set the default locations for the build process.
@@ -242,7 +254,7 @@ The "custom" location setting allows for some varied behavior in where build loc
 
 The "Legacy" option, was default option for Xcode prior to version 4. This settings requires that each project have SYMROOT and OBJROOT defined as part of each target's build settings. This enables specific build directories to be set per target in each project. By default the value for SYMROOT is build/, which means a directory named "build" on the same level as the project file. When working with workspaces and nested project files, you may need to adjust this value accordingly to create a common build directory for the top-most project or workspace file by adjusting the relative location. For example, setting SYMROOT of a nested project to be ../build so that it uses the same build directory as the parent project. Alternatively, you can adjust the search paths of a parent project to look in the build directory of a child project to resolve dependencies.
 
-
+<a name="BestPractices"></a>
 # Best Practices 
 
 ## Manage multiple versions of App with Configurations
@@ -331,10 +343,40 @@ link_with 'todo', 'todo Dev'
 pod 'AFNetworking'
 ```
 
-
+<a name="Resources"></a>
 # Resources
 
 [**Source Blog:**](https://pewpewthespells.com/ramble.html)
 [Medium Configurations 1](https://medium.com/@danielgalasko/run-multiple-versions-of-your-app-on-the-same-device-using-xcode-configurations-1fd3a220c608)
 [Medium Configurations 2](https://medium.com/@danielgalasko/change-your-api-endpoint-environment-using-xcode-configurations-in-swift-c1ad2722200e)
 [AppCoda Targets](https://www.appcoda.com/using-xcode-targets/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
