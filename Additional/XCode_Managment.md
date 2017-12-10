@@ -65,7 +65,7 @@ Dependencies are simply pre-requisites for building a target. Target dependency 
 Explicit dependencies are dependencies that are visible by a target. A target's explicit dependencies can be found in the "Target Dependencies" section under "Build Phases", as shown below.
 This is a dependency that states that it must be explicitly built before building the rest of the target. There is ordering to building this type of dependency.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management1.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management1.png">
 
 ## Implicit
 
@@ -93,7 +93,7 @@ Schemes are one of the most powerful organizational tools in Xcode. These allow 
 
 The "Build" action allows you to configure which targets should be built for other actions. The ordering of the targets list is meaningful to the order that they are built in when the action is run. The ordering is represented by top-to-bottom as first-to-last build order.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management2.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management2.png">
 
 This window also contains two very important checkboxes for changing how builds work.
 
@@ -118,51 +118,51 @@ As of this writing, both Xcode 5 and 6 exhibit some very confusing behavior with
 The "Run" action allows you to configure how the application will launch and the environment it has.
 
 * Info: You can configure the build configuration that the scheme will use, the built product/executable, and how that will get debugged and run.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management3.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management3.png">
 * Arguments: Use this section to configure passed launch arguments and environment variables. Existing environment variables, such as SRCROOT can be used here and will be expanded before being passed.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management4.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management4.png">
 * Options: This is a set of additional options relevant to the state of running the application from Xcode.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management5.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management5.png">
 * Diagnostics: These are additional tools that can be enabled to help debug memory management issues as well as some more advanced information logging.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management6.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management6.png">
 
 ### Test
 
 The "Test" scheme action is used to run associated unit test bundles.
 
 * Info: Selecting the build configuration and debugger used when running tests. This view provides a list of unit test targets that are associated with the scheme. This also displays the state of all the test methods in each unit test bundle. Individual test methods can be enabled or disabled from being called when running the test action on the scheme.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management7.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management7.png">
 * Arguments: Similar to the "run" action, the test action can be passed specific environment variables and launch arguments. These can be inherited directly from the entries in the "run" scheme action.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management8.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management8.png">
 
 ### Profile
 
 The "Profile" scheme action allows you to run an app while attached to additional debugging instrumentation. This is crucial to track down memory leaks, examine threading behavior, and make performance optimizations.
 
 * Info: This will configure the initial behavior performed by the profile action. The build configuration, executable to attach to, and the default action that Instruments.app should take are configurable from here.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management9.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management9.png">
 * Arguments: Similar to the "run" action, the profile action can be passed specific environment variables and launch arguments. These can be inherited directly from the entries in the "run" scheme action.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management10.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management10.png">
 * Options: This includes some additional launch and application state options.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management11.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management11.png">
 
 ### Analyze
 
 This scheme action runs code through the llvm static analyzer. The only configurable option for this is the build configuration it uses. It is recommended to regularly run code through the analyzer, as it will find bugs and help you write cleaner code. The "analyze" action performs a deep analysis by default. By using the target's build settings, you can enable the static analyzer to be run when performing the "build" action on a scheme as well. This is disabled by default and will only perform a shallow analysis on a "build", but can be configured to perform a deep analysis if desired.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management12.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management12.png">
 
 ### Archive
 
 The "Archive" scheme action is used to cut builds for uploading to distribute. These get exported to <Xcode Archives Path>/<YYYY-MM-DD>/ and are labeled by name and time of export. (See "Build Locations", for more information on the Archives path)
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management13.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management13.png">
 
 ## Management
 
 Schemes can be auto-created for each target you add to a project. In addition you can add new schemes for organize how the target schemes are run and grouped. This is similar to using aggregate targets for organizing inside of a project.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management14.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management14.png">
 
 Schemes are stored in whatever container they were created in, either in a project or workspace. The manner in how they are stored is governed by if they are "shared" schemes or "user" schemes. By default new schemes are created as "user" schemes.
 
@@ -174,7 +174,7 @@ To perform any build action on a specific target, a scheme must exist for that t
 
 To make the list of schemes more manageable, there is an additional checkbox to toggle a scheme from being listed in the schemes selection drop-down menu on the Xcode window. By only making the most commonly used schemes visible in the dropdown, this can reduce clutter and make switching build configurations (e.g. Development vs Production environment builds) easier.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management15.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management15.png">
 
 
 # Build Configuration
@@ -190,7 +190,7 @@ Build configurations are stored on a per-project level and allow for specifying 
 
 > Note: All of the settings discussed in this section apply globally. All of your projects and workspaces will use these settings. Use caution and check thoroughly before changing any of these settings. In addition to managing the organization of code inside of Xcode, you can also customize the output locations of any built products. Build locations are significant to managing the resolution of target dependencies. From this panel you can set where on the filesystem Xcode should set the default locations for the build process.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management16.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management16.png">
 
 * Derived Data: The Derived Data location is, by default, the location where all the intermediate and final products of the build process are stored. This field sets the global location of where the Derived Data directory is stored. However there are a number of ways that the build locations can be configured. The settings for these options can be configured by clicking on the "Advanced..." button.
 
@@ -219,7 +219,7 @@ The "custom" location setting allows for some varied behavior in where build loc
 * Workspace: This setting is similar to the "Unique" setting, except the build directory is in the same directory as the open workspace or top-most project file instead of a unique folder in the Derived Data directory.
 * Absolute: This setting is similar to the "Shared Folder" setting, except it is not a sub-directory of the Derived Data directory. This sets an absolute path to a location on your file-system that will house all built products and intermediates. As this is an absolute path and not a relative path, this can cause conflicts if your targets are configured assuming absolute search paths that might not exist for other users or in other environments.
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management17.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management17.png">
 
 ## Legacy
 
@@ -230,23 +230,23 @@ The "Legacy" option, was default option for Xcode prior to version 4. This setti
 
 ## Manage multiple versions of App with Configurations
 * Setup your project configurations.
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management18.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management18.png">
 * Update environment related variables in Info.plist (AppName, BundleID, AppIcon, CustomVariables)
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management19.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management19.png">
 * Update environment related variables in App Target's build settings (AppName, BundleID, AppIcon, CustomVariables)
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management20.png">
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management21.png">
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management22.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management20.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management21.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management22.png">
 * Add or Update scheme for using your new configuration
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management23.png">
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management24.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management23.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management24.png">
 * Update your code for using your new CustomVariables (if needed)
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management25.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management25.png">
 ```swift
 let env = NSBundle.mainBundle().infoDictionary![“MY_API_BASE_URL_ENDPOINT”] as! String
 ```
 * Add custom compiler variables (if needed)
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management26.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management26.png">
 ```swift
 struct Configuration {
     #if DEBUG
@@ -267,11 +267,11 @@ struct Configuration {
 ## Manage multiple versions of App with Targets
 
 * Create new target
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management27.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management27.png">
 * Update target related settings (General settings, Assets, BundleID, Build Settings, CustomVariables etc)
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management28.png">
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management29.png">
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management30.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management28.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management29.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management30.png">
 * Update your code for using your new CustomVariables (if needed)
 ```objc
 #if DEVELOPMENT
@@ -283,7 +283,7 @@ struct Configuration {
 #endif
 ```
 > Note: Dont forget to include your files to the targets
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/XCode_Management31.png">
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/XCode_Management31.png">
 > Note: If using CocoaPods dont forget target to podfile
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'

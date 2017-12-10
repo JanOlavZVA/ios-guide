@@ -33,8 +33,6 @@ There will never be negative performance impacts for enabling it, but internal d
 >Finally, the bitcode on the server can be translated to support new architectures and instruction sets as they evolve. Provided that they maintain the calling convention and size of the alignment and words, a bitcode application might be translated into different architecture types and optimised specifically for a new processor. If standard libraries for math and vector routines are used, these can be optimised into processor specific vector instructions to gain the best performance for a given application. The optimisers might even generate multiple different encodings and judge based on size or execution speed.
 
 
-
-
 # Slicing
 
 Slicing is the process of creating and delivering variants of the app bundle for different target devices. A variant contains only the executable architecture and resources that are needed for the target device. You continue to develop and upload full versions of your app to iTunes Connect. The store will create and deliver different variants based on the devices your app supports. Image resources are sliced according to their resolution and device family. GPU resources are sliced according to device capabilities. For tvOS apps, assets in catalogs shared between iOS and tvOS targets are sliced and large app icons are removed. When the user installs an app, a variant for the user’s device is downloaded and installed.
@@ -45,7 +43,7 @@ Xcode simulates slicing during development so you can create and test variants l
 
 **Note: To test the variants that the store builds before you distribute your app to users, invite internal testers (your team’s iTunes Connect users) only and download the variants using TestFlight. If you invite external testers (users specifying only their email addresses), the external testers must wait for Beta App Review to approve the app before they can download variants.**
 
-<img src="https://github.com/m4stodon/ios-guide/tree/master/Additional/Images/XCode_Series/slicing.png"/>
+<img src="https://github.com/m4stodon/ios-guide/blob/master/Additional/Images/XCode_Series/slicing.png">
 
 Slicing is performed during your normal development and distribution workflows, which proceed generally as follows:
 
