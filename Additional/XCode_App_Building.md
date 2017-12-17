@@ -1,5 +1,16 @@
+**XCode Application Building. From source code to binary.**
+- [SHORT HAND](#Shorthand)
+- [Detailed](#Detailed)
+- [Step 1. Preprocessing](#Step1)
+- [Step 2. Compiling](#Step2)
+- [Step 3. Assemblying](#Step3)
+- [Step 4. Linking](#Step4)
+- [Resources](#Resources)
+
 
 # XCode Application Building. From source code to binary.
+
+<a name="Shorthand"></a>
 
 ## SHORT HAND
 
@@ -10,6 +21,8 @@
 - **Copy Bundle Resources** Некоторые файлы копируются в приложение, чтобы ваш код или система могли найти их во время выполнения приложения. Например, если приложение имеет пиктограмму, ее нужно скопировать в приложение, чтобы устройство могло его найти и отобразить на экране. Эта фаза сборки в настоящее время применяется к каталогу ресурсов; в каталог изображения можно добавить любые изображения, которые будут скопированы в ваше приложение. В настоящий момент каталог содержит файлы InfoPlist. strings и . storyboard. Копирование не обязательно означает создание идентичной копии. Файлы некоторых типов при копировании в комплект приложения автоматически обрабатываются специальным образом. Например, копирование каталога ресурсов означает, что пиктограммы и заставки в каталоге записываются на верхний уровень комплекта приложения; копирование файла . storyboard означает, что он будет преобразован в файл . storyboardc, который в свою очередь представляет собой комплект, состоящий из nib-файлов.
 
 - **Run Scripts** Custom scripts can be added to the build process. (e.g. Fabric disrtibution tool)
+
+<a name="Detailed"></a>
 
 ## Detailed 
 
@@ -31,6 +44,7 @@ LLVM that takes care of translating the IR code into native bytecode for differe
 5: bind-arch, "x86_64", {4}, image
 ```
 
+<a name="Step1"></a>
 ### STEP 1. Preprocessing
 
 The preprocessor handles a macro processing language, which means it will replace macros in your text by their definitions.
@@ -41,6 +55,7 @@ The preprocessor will take that line, and substitute it with the contents of tha
 This is the reason why people tell you to keep your header files free of imports as much as you can, because anytime you import something, the compiler has to do more work.
 
 #### 1.1 Custom Macros
+
 ```objc
 #define MY_CONSTANT 
 #define MY_MACRO(x) x
@@ -49,6 +64,7 @@ This is the reason why people tell you to keep your header files free of imports
 Now, anytime you write MY_CONSTANT after this line, it’ll get replaced by 4 before the rest of compilation starts.
 
 #### 1.2 Tokenization (Lexing)
+
 After preprocessing is done, every source .m file now has a bunch of definitions. This text is converted from a string to a stream of tokens.
 ```objc
 int main() {
@@ -81,6 +97,7 @@ eof ''          Loc=<hello.m:7:2>
 We can see that each token consists of a piece of text and a source location. The source location is from before macro expansion, so that if something goes wrong, clang can point you to the right spot.
 
 #### 1.3 Parsing
+
 On this step stream of tokens is parsed into an abstract syntax tree. After parsing, a program is now available as an abstract syntax tree: a tree that represents the original program.
 
 ```objc
@@ -134,6 +151,7 @@ Every node in the abstract syntax tree is annotated with the original source pos
 - ARC Leaks Checking
 - (ELSE ON clang -> lib/StaticAnalyzer/Checkers)
 
+<a name="Step2"></a>
 ### STEP 2. Compiling
 
 Now, once your code is fully tokenized, parsed, and analyzed by clang, it can generate the LLVM code for you.
@@ -201,6 +219,7 @@ define i32 @main() #0 {
 The most important lines are line 4, which creates the NSNumber object, line 7, which sends the description message to the number object, and line 8, which logs the string returned from the description message.
 
 #### 2.1 Optimizations
+
 LLVM and clang can do some complex optimizations of your code.
 To use optimizations you can pass ```-O3``` flag to clang.
 You can define this in Project Build Settings
@@ -209,11 +228,13 @@ You can define this in Project Build Settings
 
 > Note: Usefull tools for mannual code analyses and code generation: libclang - C lib, ClangKit - Objc wrapper, LibTooling - C++ the most powerfull lib provided by clang itself.
 
-
+<a name="Step3"></a>
 ## STEP 3. Assemblying
+
 The assembler converts the (human-readable) assembly code into machine code. It creates a target object file, often simply called object file. These files have a .o file ending. If you build your app with Xcode, you’ll find these object files inside the Objects-normal folder inside the derived data directory of your project.
 
 ### 3.1 Segments and Sections
+
 An executable will have multiple sections, i.e. parts. Different parts of the executable will each go into their own section, and each section will in turn go inside a segment.
 ```
 % xcrun size -x -l -m a.out 
@@ -245,6 +266,7 @@ The ```__DATA``` segment contains read/write data. In our case we only have ```_
 Other common sections in the ```__DATA``` segment are ```__const```, which will contain constant data which needs relocation. An example is ```char * const p = "foo";``` – the data pointed to by p is not constant. The ```__bss``` section contains uninitialized static variables such as static int a; – the ANSI C standard specifies that static variables must be set to zero. But they can be changed at run time. The ```__common``` section contains uninitialized external globals, similar to static variables. An example would be int a; outside a function block. Finally, ```__dyld``` is a placeholder section, used by the dynamic linker.
 
 ### 3.2 Section Content
+
 ```
 % xcrun otool -s __TEXT __text a.out 
 a.out:
@@ -296,14 +318,17 @@ Contents of (__TEXT,__eh_frame) section
 ```
 
 ### 3.3 Arbitrary Sections 
+
 You can add arbitrary data as a section to your executable with the -sectcreate linker flag. This is how you’d add a Info.plist to a single file executable. The Info.plist data needs to go into a ```__info_plist``` section of the ```__TEXT``` segment. 
 
-
+<a name="Step4"></a>
 ## STEP 4. Linking
+
 The linker will resolve symbols between object files and libraries.
 ```printf()``` is a function in the libc library. Somehow, the final executable needs to be able to know where in memory the ```printf()``` is, i.e. what the address of the ```_printf``` symbol is. The linker takes all object files (in our case, only one) and the libraries (in our case, implicitly libc) and resolves any unknown symbols (in our case, the ```_printf```). It then encodes into the final executable that this symbol can be found in libc, and the linker then outputs the final executable that can be run: ```a.out```.
 
 ### 4.1 Symbols and linking
+
 Our small app was put together from two object files. The ```Foo.o``` object file contains the implementation of the ```Foo``` class, and the ```helloworld.o``` object file contains the ```main()``` function and calls/uses the ```Foo``` class.
 Furthermore, both of these use the Foundation framework. The ```helloworld.o``` object file uses it for the autorelease pool, and it indirectly uses the Objective-C runtime in form of the ```libobjc.dylib```. It needs the runtime functions to make message calls. This is similar to the ```Foo.o``` object file.
 All of these are represented as so-called symbols. We can think of a symbol as something that’ll be a pointer once the app is running, although its nature is slightly different.
@@ -404,51 +429,11 @@ And these in turn will use countless other frameworks and dynamic libraries. The
 In order to shortcut this process, the dynamic linker on OS X and iOS uses a shared cache that lives inside /var/db/dyld/. For each architecture, the OS has a single file that contains almost all dynamic libraries already linked together into a single file with their interdependent symbols resolved. When a Mach-O file (an executable or a library) is loaded, the dynamic linker will first check if it’s inside this shared cache image, and if so, use it from the shared cache. Each process has this dyld shared cache mapped into its address space already. This method dramatically improves launch time on OS X and iOS.
 
 
-
+<a name="Resources"></a>
 # Resources
 
 - [PewPewTheSpells.com Build System](https://pewpewthespells.com/blog/xcode_build_system.html)
 - [objc.io Build Process](https://www.objc.io/issues/6-build-tools/build-process/)
 - [objc.io Mach-O](https://www.objc.io/issues/6-build-tools/mach-o-executables/)
 - [objc.io The Compiler](https://www.objc.io/issues/6-build-tools/compiler/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

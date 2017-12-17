@@ -346,37 +346,7 @@ pod 'AFNetworking'
 <a name="Resources"></a>
 # Resources
 
-[**Source Blog:**](https://pewpewthespells.com/ramble.html)
+[PewPewTheSpells](https://pewpewthespells.com/ramble.html)
 [Medium Configurations 1](https://medium.com/@danielgalasko/run-multiple-versions-of-your-app-on-the-same-device-using-xcode-configurations-1fd3a220c608)
 [Medium Configurations 2](https://medium.com/@danielgalasko/change-your-api-endpoint-environment-using-xcode-configurations-in-swift-c1ad2722200e)
 [AppCoda Targets](https://www.appcoda.com/using-xcode-targets/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
